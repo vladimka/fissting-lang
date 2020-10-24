@@ -1,0 +1,26 @@
+const { NumberValue } = require('../../lib/values/');
+
+class BinaryExpression{
+	constructor(op, expr1, expr2){
+		this.op = op;
+		this.expr1 = expr1;
+		this.expr2 = expr2;
+	}
+
+	eval(){
+		let value1 = this.expr1.eval();
+		let value2 = this.expr2.eval();
+		let result;
+
+		switch(this.op){
+			case '+': result = new NumberValue(value1.asNumber() + value2.asNumber()); break;
+			case '-': result = new NumberValue(value1.asNumber() - value2.asNumber()); break;
+			case '/': result = new NumberValue(value1.asNumber() / value2.asNumber()); break;
+			case '*': result = new NumberValue(value1.asNumber() * value2.asNumber()); break;
+		}
+		
+		return result;
+	}
+}
+
+module.exports = BinaryExpression;
