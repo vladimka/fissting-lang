@@ -7,13 +7,13 @@ class Interpreter{
 		this.lexer = new Lexer(readFileSync(fileName, 'utf8'));
 		this.tokens = this.lexer.tokenize();
 		this.tokens = this.tokens.filter(token => token.type != 'SPACE');
+		console.log(this.tokens);
 		this.parser = new Parser(this.tokens);
 		this.program = this.parser.parse();
+		console.log(this.program.statements);
 	}
 
 	interpret(){
-		console.log(this.tokens);
-		console.log(this.program);
 		this.program.execute();
 	}
 }

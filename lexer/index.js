@@ -1,14 +1,22 @@
 const LexerError = require('./error');
 const Token = require('./token');
 
-const op_regexp = /[+-\/*\(\)]/;
+const op_regexp = /[+-\/*\(\)<>!=|&]/;
 const op_tokens = {
 	'+' : 'PLUS',
 	'-' : 'MINUS',
 	'/' : 'SLASH',
 	'*' : 'STAR',
 	'(' : 'LBRACE',
-	')' : 'RBRACE'
+	')' : 'RBRACE',
+	'<' : 'LT',
+	'>' : 'GT',
+	'<=' : 'LTEQ',
+	'>=' : 'GTEQ',
+	'==' : 'EQ',
+	'!=' : 'NOTEQ',
+	'||' : 'OR',
+	'&&' : 'AND'
 }
 
 class Lexer{
@@ -77,14 +85,15 @@ class Lexer{
 		let buffer = '';
 
 		while(true){
-			if(!op_regexp.test(current))
+			if(op_tokens[buffer + current] != undefined){
+				this.pushToken(op_tokens[buffer + current]);
+				this.next();
 				break;
+			}
 
 			buffer += current;
 			current = this.next();
 		}
-
-		this.pushToken(op_tokens[buffer]);
 	}
 
 	tokenizeNewLine(){
@@ -110,8 +119,25 @@ class Lexer{
 			case 'put': this.pushToken('PUT'); break;
 			case 'in': this.pushToken('IN'); break;
 			case 'print': this.pushToken('PRINT'); break;
+			case 'true': this.pushToken('TRUE'); break;
+			case 'false': this.pushToken('FALSE'); break;
 			default: this.pushToken('WORD', buffer);
 		}
+	}
+
+	tokenizeString(){
+		let current = this.next();
+		let buffer = '';
+
+		while(true){
+			if(current == '"')
+				break;
+
+			buffer += current;
+			current = this.next();
+		}
+		this.next();
+		this.pushToken('STRING', buffer);
 	}
 
 	tokenize(){
@@ -123,6 +149,7 @@ class Lexer{
 			else if(current == ' ') this.tokenizeWhitespaces();
 			else if(/[\r\n]/.test(current)) this.tokenizeNewLine();
 			else if(/\w/.test(current)) this.tokenizeWord();
+			else if(current == '"') this.tokenizeString();
 			else new LexerError(this.column, this.line, current).throw();
 
 			current = this.peek(0);

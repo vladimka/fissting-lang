@@ -58,7 +58,69 @@ class Parser{
 	}
 
 	expression(){
-		return this.multiplicative();
+		return this.logical();
+	}
+
+	logical(){
+		let expr = this.equation();
+
+		while(true){
+			if(this.match('OR')){
+				expr = new expressions.ConditionalExpression('||', expr, this.equation());
+				continue;
+			}
+			if(this.match('AND')){
+				expr = new expressions.ConditionalExpression('&&', expr, this.equation());
+				continue;
+			}
+			break;
+		}
+
+		return expr;
+	}
+
+	equation(){
+		let expr = this.conditional();
+
+		while(true){
+			if(this.match('EQ')){
+				expr = new expressions.ConditionalExpression('==', expr, this.conditional());
+				continue;
+			}
+			if(this.match('NOTEQ')){
+				expr = new expressions.ConditionalExpression('!=', expr, this.conditional());
+				continue;
+			}
+			break;
+		}
+
+		return expr;
+	}
+
+	conditional(){
+		let expr = this.multiplicative();
+
+		while(true){
+			if(this.match('LT')){
+				expr = new expressions.ConditionalExpression('<', expr, this.multiplicative());
+				continue;
+			}
+			if(this.match('GT')){
+				expr = new expressions.ConditionalExpression('>', expr, this.multiplicative());
+				continue;
+			}
+			if(this.match('LTEQ')){
+				expr = new expressions.ConditionalExpression('<=', expr, this.multiplicative());
+				continue;
+			}
+			if(this.match('GTEQ')){
+				expr = new expressions.ConditionalExpression('>=', expr, this.multiplicative());
+				continue;
+			}
+			break;
+		}
+
+		return expr;
 	}
 
 	multiplicative(){
@@ -97,37 +159,37 @@ class Parser{
 		return expr;
 	}
 
-	unary(){
-		let expr = this.primary();
+	// unary(){
+	// 	let expr = this.primary();
 
-		while(true){
-			if(this.match('MINUS')){
-				console.log(expr);
-				expr = new expressions.UnaryExpression('-', expr);
-				continue;
-			}
-			break;
-		}
+	// 	while(true){
+	// 		if(this.match('MINUS')){
+	// 			console.log(expr);
+	// 			expr = new expressions.UnaryExpression('-', expr);
+	// 			continue;
+	// 		}
+	// 		break;
+	// 	}
 
-		return expr;
-	}
+	// 	return expr;
+	// }
 
 	primary(){
 		let current = this.get(0);
 
-		if(this.match('NUM'))
-			return new expressions.NumberExpression(parseFloat(current.value));
+		if(this.match('NUM')) return new expressions.NumberExpression(parseFloat(current.value));
+		else if(this.match('STRING')) return new expressions.StringExpression(current.value);
+		else if(this.match('LBRACE')) return this.expressionInBraces();
+		else if(this.match('TRUE')) return new expressions.BooleanExpression(true);
+		else if(this.match('FALSE')) return new expressions.BooleanExpression(false);
+		else if(this.match('WORD')) return new expressions.VariableExpression(current.value);
+		else throw new Error('Unknown token: ' + current.type);
+	}
 
-		if(this.match('LBRACE')){
-			let expr = this.expression();
-			this.match('RBRACE');
-			return expr;
-		}
-
-		if(this.match('WORD'))
-			return new expressions.VariableExpression(current.value);
-
-		throw new Error('Unknown token: ' + current.type);
+	expressionInBraces(){
+		let expr = this.expression();
+		this.match('RBRACE');
+		return expr;
 	}
 }
 

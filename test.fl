@@ -1,2 +1,4 @@
-put pi * 2 * 3 in out
+put "Hello World" in out
+print
+put 1 < 2 in out
 print
