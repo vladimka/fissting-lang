@@ -23,6 +23,7 @@ class BinaryExpression{
 				result = new NumberValue(value1.asNumber() / value2.asNumber());
 			break;
 			case '*': result = new NumberValue(value1.asNumber() * value2.asNumber()); break;
+			case '%': result = new NumberValue(value1.asNumber() % value2.asNumber()); break;
 		}
 		
 		return result;

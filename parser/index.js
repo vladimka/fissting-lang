@@ -61,6 +61,7 @@ class Parser{
 		else if(this.match('PRINT')) return new statements.PrintStatement();
 		else if(this.match('IF')) return this.ifStatement();
 		else if(this.match('WHILE')) return this.whileStatement();
+		else if(this.match('BREAK')) return new statements.BreakStatement();
 		else throw new Error('Unknown statement: ' + this.get(0).type);
 	}
 
@@ -182,6 +183,10 @@ class Parser{
 			}
 			if(this.match('MINUS')){
 				expr = new expressions.BinaryExpression('-', expr, this.primary());
+				continue;
+			}
+			if(this.match('PERCENT')){
+				expr = new expressions.BinaryExpression('%', expr, this.primary());
 				continue;
 			}
 			break;

@@ -1,9 +1,6 @@
-put 0 in i
+put 233 + 206 in summ
 
-while i < 10 begin
-	put i in out
-	print
-	put nl in out
-	print
-	put i + 1 in i
-end
+if summ > 400 put "esss -3 yuhuuu" in out
+else put "suka blyat" in out
+
+print

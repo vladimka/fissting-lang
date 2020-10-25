@@ -6,7 +6,11 @@ class WhileStatement{
 
 	execute(){
 		while(this.condition.eval().asBoolean() == true){
-			this.body.execute();
+			try{
+				this.body.execute();
+			}catch(e){
+				if(e == "break") break;
+			}
 		}
 	}
 }
