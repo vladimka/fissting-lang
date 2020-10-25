@@ -1,4 +1,6 @@
-put "Hello World" in out
-print
-put 1 < 2 in out
+put 2 in a
+
+if a < 3 put "oooooooo" in out
+else put "eeeee" in out
+
 print

@@ -1,4 +1,4 @@
-const { NumberValue } = require('../../../lib/values/');
+const { NumberValue, UnknownValue } = require('../../../lib/values/');
 
 class BinaryExpression{
 	constructor(op, expr1, expr2){
@@ -15,7 +15,13 @@ class BinaryExpression{
 		switch(this.op){
 			case '+': result = new NumberValue(value1.asNumber() + value2.asNumber()); break;
 			case '-': result = new NumberValue(value1.asNumber() - value2.asNumber()); break;
-			case '/': result = new NumberValue(value1.asNumber() / value2.asNumber()); break;
+			case '/':
+				if(value2.asNumber() == 0){
+					result = new UnknownValue();
+					break;
+				}
+				result = new NumberValue(value1.asNumber() / value2.asNumber());
+			break;
 			case '*': result = new NumberValue(value1.asNumber() * value2.asNumber()); break;
 		}
 		

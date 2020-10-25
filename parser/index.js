@@ -33,6 +33,15 @@ class Parser{
 		return this.statement;
 	}
 
+	blockOrStatement(){
+		if(this.match('BEGIN')){
+			let block = this.blockStatement();
+			this.match('END');
+			return block;
+		}
+		return this.statement();
+	}
+
 	blockStatement(){
 		let _statements = [];
 
@@ -44,17 +53,28 @@ class Parser{
 	}
 
 	statement(){
-		if(this.match('NEW_LINE')) return;
-		if(this.match('PUT')){
-			let expr = this.expression();
-			this.match('IN');
-			let name = this.get(0).value;
-			this.match('WORD');
-			return new statements.PutStatement(expr, name);
-		}
-		if(this.match('PRINT'))
-			return new statements.PrintStatement();
-		throw new Error('Unknown statement: ' + this.get(0).type);
+		if(this.match('PUT')) return this.putStatement();
+		else if(this.match('PRINT')) return new statements.PrintStatement();
+		else if(this.match('IF')) return this.ifStatement();
+		else throw new Error('Unknown statement: ' + this.get(0).type);
+	}
+
+	ifStatement(){
+		let condition = this.expression();
+		let body = this.blockOrStatement();
+		let elseBlock;
+
+		if(this.match('ELSE')) elseBlock = this.statement();
+
+		return new statements.IfStatement(condition, body, elseBlock ? elseBlock : undefined);
+	}
+
+	putStatement(){
+		let expr = this.expression();
+		this.match('IN');
+		let name = this.get(0).value;
+		this.match('WORD');
+		return new statements.PutStatement(expr, name);
 	}
 
 	expression(){
@@ -183,7 +203,8 @@ class Parser{
 		else if(this.match('TRUE')) return new expressions.BooleanExpression(true);
 		else if(this.match('FALSE')) return new expressions.BooleanExpression(false);
 		else if(this.match('WORD')) return new expressions.VariableExpression(current.value);
-		else throw new Error('Unknown token: ' + current.type);
+		else if(this.match('UNKNOWN')) return new expressions.UnknownExpression();
+		else throw new Error('Unknown expression: ' + current.type);
 	}
 
 	expressionInBraces(){

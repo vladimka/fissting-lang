@@ -2,7 +2,7 @@ const Variables = require('../../../lib/variables');
 
 class PrintStatement{
 	execute(){
-		console.log(Variables.get('out').asString());
+		process.stdout.write(Variables.get('out').asString());
 	}
 }
 

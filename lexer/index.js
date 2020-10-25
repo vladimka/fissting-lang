@@ -45,17 +45,13 @@ class Lexer{
 
 	tokenizeWhitespaces(){
 		let current = this.peek(0);
-		let buffer = '';
 
 		while(true){
 			if(current != ' ')
 				break;
 
-			buffer += current;
 			current = this.next();
 		}
-
-		this.pushToken('SPACE', buffer);
 	}
 
 	tokenizeNumber(){
@@ -85,6 +81,13 @@ class Lexer{
 		let buffer = '';
 
 		while(true){
+			if(current == '/'){
+				if(this.peek(1) == '/'){
+					this.tokenizeComment();
+					break;
+				}
+			}
+
 			if(op_tokens[buffer + current] != undefined){
 				this.pushToken(op_tokens[buffer + current]);
 				this.next();
@@ -96,11 +99,28 @@ class Lexer{
 		}
 	}
 
-	tokenizeNewLine(){
-		this.line++;
-		this.column = 1;
-		// this.pushToken('NEW_LINE');
+	tokenizeComment(){
 		this.next();
+		this.next();
+		while(true){
+			if(/[\r\n]/.test(this.peek(0)))
+				break;
+
+			this.next();
+		}
+	}
+
+	tokenizeNewLine(){
+		let current = this.peek(0);
+
+		while(true){
+			if(!/[\r\n]/.test(current))
+				break;
+
+			this.line++;
+			current = this.next();
+		}
+		this.column = 1;
 	}
 
 	tokenizeWord(){
@@ -121,6 +141,11 @@ class Lexer{
 			case 'print': this.pushToken('PRINT'); break;
 			case 'true': this.pushToken('TRUE'); break;
 			case 'false': this.pushToken('FALSE'); break;
+			case 'unknown': this.pushToken('UNKNOWN'); break;
+			case 'if': this.pushToken('IF'); break;
+			case 'else': this.pushToken('ELSE'); break;
+			case 'begin': this.pushToken('BEGIN'); break;
+			case 'end': this.pushToken('END'); break;
 			default: this.pushToken('WORD', buffer);
 		}
 	}

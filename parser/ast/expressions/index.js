@@ -5,6 +5,7 @@ const VariableExpression = require('./variable-expression');
 const StringExpression = require('./string-expression');
 const BooleanExpression = require('./boolean-expression');
 const ConditionalExpression = require('./conditional-expression');
+const UnknownExpression = require('./unknown-expression');
 
 module.exports = {
 	NumberExpression,
@@ -13,5 +14,6 @@ module.exports = {
 	VariableExpression,
 	StringExpression,
 	BooleanExpression,
-	ConditionalExpression
+	ConditionalExpression,
+	UnknownExpression
 }
