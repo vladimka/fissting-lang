@@ -146,6 +146,7 @@ class Lexer{
 			case 'else': this.pushToken('ELSE'); break;
 			case 'begin': this.pushToken('BEGIN'); break;
 			case 'end': this.pushToken('END'); break;
+			case 'while': this.pushToken('WHILE'); break;
 			default: this.pushToken('WORD', buffer);
 		}
 	}
@@ -165,6 +166,17 @@ class Lexer{
 		this.pushToken('STRING', buffer);
 	}
 
+	tokenizeTabs(){
+		let current = this.peek(0);
+
+		while(true){
+			if(current != '\t')
+				break;
+
+			current = this.next();
+		}
+	}
+
 	tokenize(){
 		let current = this.peek(0);
 
@@ -172,6 +184,7 @@ class Lexer{
 			if(/\d/.test(current)) this.tokenizeNumber();
 			else if(op_regexp.test(current)) this.tokenizeOperation();
 			else if(current == ' ') this.tokenizeWhitespaces();
+			else if(current == '\t') this.tokenizeTabs();
 			else if(/[\r\n]/.test(current)) this.tokenizeNewLine();
 			else if(/\w/.test(current)) this.tokenizeWord();
 			else if(current == '"') this.tokenizeString();

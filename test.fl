@@ -1,6 +1,9 @@
-put 2 in a
+put 0 in i
 
-if a < 3 put "oooooooo" in out
-else put "eeeee" in out
-
-print
+while i < 10 begin
+	put i in out
+	print
+	put nl in out
+	print
+	put i + 1 in i
+end

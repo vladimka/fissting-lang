@@ -35,9 +35,13 @@ class Parser{
 
 	blockOrStatement(){
 		if(this.match('BEGIN')){
-			let block = this.blockStatement();
-			this.match('END');
-			return block;
+			let _statements = [];
+
+			while(!this.match('END')){
+				_statements.push(this.statement());
+			}
+			
+			return new statements.BlockStatement(_statements);
 		}
 		return this.statement();
 	}
@@ -56,7 +60,14 @@ class Parser{
 		if(this.match('PUT')) return this.putStatement();
 		else if(this.match('PRINT')) return new statements.PrintStatement();
 		else if(this.match('IF')) return this.ifStatement();
+		else if(this.match('WHILE')) return this.whileStatement();
 		else throw new Error('Unknown statement: ' + this.get(0).type);
+	}
+
+	whileStatement(){
+		let condition = this.expression();
+		let body = this.blockOrStatement();
+		return new statements.WhileStatement(condition, body);
 	}
 
 	ifStatement(){
