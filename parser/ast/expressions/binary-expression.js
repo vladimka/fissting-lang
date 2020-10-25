@@ -1,4 +1,4 @@
-const { NumberValue } = require('../../lib/values/');
+const { NumberValue } = require('../../../lib/values/');
 
 class BinaryExpression{
 	constructor(op, expr1, expr2){

@@ -90,8 +90,28 @@ class Lexer{
 	tokenizeNewLine(){
 		this.line++;
 		this.column = 1;
-		this.pushToken('NEW_LINE');
+		// this.pushToken('NEW_LINE');
 		this.next();
+	}
+
+	tokenizeWord(){
+		let current = this.peek(0);
+		let buffer = '';
+
+		while(true){
+			if(!/\w/.test(current))
+				break;
+
+			buffer += current;
+			current = this.next();
+		}
+
+		switch(buffer){
+			case 'put': this.pushToken('PUT'); break;
+			case 'in': this.pushToken('IN'); break;
+			case 'print': this.pushToken('PRINT'); break;
+			default: this.pushToken('WORD', buffer);
+		}
 	}
 
 	tokenize(){
@@ -101,7 +121,8 @@ class Lexer{
 			if(/\d/.test(current)) this.tokenizeNumber();
 			else if(op_regexp.test(current)) this.tokenizeOperation();
 			else if(current == ' ') this.tokenizeWhitespaces();
-			else if(/\n+/.test(current)) this.tokenizeNewLine();
+			else if(/[\r\n]/.test(current)) this.tokenizeNewLine();
+			else if(/\w/.test(current)) this.tokenizeWord();
 			else new LexerError(this.column, this.line, current).throw();
 
 			current = this.peek(0);

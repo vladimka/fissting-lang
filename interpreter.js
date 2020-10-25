@@ -8,14 +8,13 @@ class Interpreter{
 		this.tokens = this.lexer.tokenize();
 		this.tokens = this.tokens.filter(token => token.type != 'SPACE');
 		this.parser = new Parser(this.tokens);
-		this.expressions = this.parser.parse();
+		this.program = this.parser.parse();
 	}
 
 	interpret(){
 		console.log(this.tokens);
-		console.log(this.expressions);
-		for(let expr of this.expressions)
-			console.log(expr.eval());
+		console.log(this.program);
+		this.program.execute();
 	}
 }
 

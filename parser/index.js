@@ -1,12 +1,13 @@
 const Token = require('../lexer/token');
-const expressions = require('./ast/');
+const expressions = require('./ast/expressions/');
+const statements = require('./ast/statements/');
 
 class Parser{
 	constructor(tokens){
 		this.tokens = tokens;
 		this.pos = 0;
 		this.EOF = new Token('EOF', '');
-		this.expressions = [];
+		this.statement;
 	}
 
 	get(pos){
@@ -28,19 +29,32 @@ class Parser{
 	}
 
 	parse(){
-		this.expressions.push(this.blockExpression());
-		return this.expressions;
+		this.statement = this.blockStatement();
+		return this.statement;
 	}
 
-	blockExpression(){
-		let exprs = [];
+	blockStatement(){
+		let _statements = [];
 
 		while(!this.match('EOF')){
-			exprs.push(this.expression());
-			this.match('NEW_LINE');
+			_statements.push(this.statement());
 		}
 
-		return new expressions.BlockExpression(exprs);
+		return new statements.BlockStatement(_statements);
+	}
+
+	statement(){
+		if(this.match('NEW_LINE')) return;
+		if(this.match('PUT')){
+			let expr = this.expression();
+			this.match('IN');
+			let name = this.get(0).value;
+			this.match('WORD');
+			return new statements.PutStatement(expr, name);
+		}
+		if(this.match('PRINT'))
+			return new statements.PrintStatement();
+		throw new Error('Unknown statement: ' + this.get(0).type);
 	}
 
 	expression(){
@@ -109,6 +123,11 @@ class Parser{
 			this.match('RBRACE');
 			return expr;
 		}
+
+		if(this.match('WORD'))
+			return new expressions.VariableExpression(current.value);
+
+		throw new Error('Unknown token: ' + current.type);
 	}
 }
 
