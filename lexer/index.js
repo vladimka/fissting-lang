@@ -154,6 +154,8 @@ class Lexer{
 			case 'break': this.pushToken('BREAK'); break;
 			case 'for': this.pushToken('FOR'); break;
 			case 'continue': this.pushToken('CONTINUE'); break;
+			case 'function': this.pushToken('FUNCTION'); break;
+			case 'return': this.pushToken('RETURN'); break;
 			default: this.pushToken('WORD', buffer);
 		}
 	}

@@ -6,6 +6,9 @@ const BreakStatement = require('./break-statement');
 const ForStatement = require('./for-statement');
 const ContinueStatement = require('./continue-statement');
 const CallStatement = require('./call-statement');
+const FunctionStatement = require('./function-statement');
+const FunctionAssignStatement = require('./function-assign-statement');
+const ReturnStatement = require('./return-statement');
 
 module.exports = {
 	BlockStatement,
@@ -15,5 +18,8 @@ module.exports = {
 	BreakStatement,
 	ForStatement,
 	ContinueStatement,
-	CallStatement
+	CallStatement,
+	FunctionStatement,
+	FunctionAssignStatement,
+	ReturnStatement
 }

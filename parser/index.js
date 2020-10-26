@@ -58,14 +58,48 @@ class Parser{
 
 	statement(){
 		if(this.match('PUT')) return this.putStatement();
-		// else if(this.match('PRINT')) return new statements.PrintStatement();
 		else if(this.match('IF')) return this.ifStatement();
 		else if(this.match('WHILE')) return this.whileStatement();
 		else if(this.match('BREAK')) return new statements.BreakStatement();
 		else if(this.match('FOR')) return this.forStatement();
 		else if(this.match('CONTINUE')) return new statements.ContinueStatement();
 		else if(this.match('CALL')) return this.callStatement();
-		else throw new Error('Unknown statement: ' + this.get(0).type);
+		else if(this.match('FUNCTION')) return this.functionAssignStatement();
+		else if(this.match('RETURN')) return new statements.ReturnStatement(this.expression());
+		else return this.functionStatement();
+	}
+
+	functionAssignStatement(){
+		let name = this.get(0).value;
+		let args = [];
+
+		this.match('WORD');
+		this.match('LPAREN');
+
+		while(!this.match('RPAREN')){
+			args.push(this.get(0).value);
+			this.match('WORD');
+			this.match('COMMA');
+		}
+
+		return new statements.FunctionAssignStatement(name, args, this.blockOrStatement());
+	}
+
+	functionStatement(){
+		let current = this.get(0);
+
+		if(this.match('WORD')){
+			if(this.match('LPAREN')){
+				let args = [];
+
+				while(!this.match('RPAREN')){
+					args.push(this.expression());
+					this.match('COMMA');
+				}
+
+				return new statements.FunctionStatement(current.value, args);
+			}
+		}else throw new Error('Unknown statement: ' + this.get(0).type);
 	}
 
 	callStatement(){

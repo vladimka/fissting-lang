@@ -1,15 +1,15 @@
 const Variables = require('../../../lib/variables');
 
-class FunctionExpression{
+class FunctionStatement{
 	constructor(name, args){
 		this.name = name;
 		this.args = args;
 	}
 
-	eval(){
+	execute(){
 		let fn = Variables.get(this.name);
-		return fn.value(...this.args);
+		fn.value(this.args);
 	}
 }
 
-module.exports = FunctionExpression;
+module.exports = FunctionStatement;
