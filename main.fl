@@ -1,0 +1,13 @@
+function print(str) begin
+	put str in out
+	call print
+end
+
+function println(str) begin
+	put concat(str, nl) in out
+	call print
+end
+
+println("Hello World")
+print(1)
+print(2)

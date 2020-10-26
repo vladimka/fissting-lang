@@ -1,0 +1,29 @@
+{
+  "name": "fissting-lang",
+  "version": "0.0.1",
+  "description": "A programming language written without any tools",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start" : "node . main.fl"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladimka/fissting-lang.git"
+  },
+  "keywords": [
+    "programming",
+    "language"
+  ],
+  "author": "vladimka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vladimka/fissting-lang/issues"
+  },
+  "homepage": "https://github.com/vladimka/fissting-lang#readme",
+  "bin" : {
+    "fl" : "index.js"
+  }
+}

@@ -8,7 +8,7 @@ class FunctionExpression{
 
 	eval(){
 		let fn = Variables.get(this.name);
-		return fn.value(...this.args);
+		return fn.value(this.args);
 	}
 }
 
