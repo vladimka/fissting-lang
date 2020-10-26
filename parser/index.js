@@ -58,13 +58,20 @@ class Parser{
 
 	statement(){
 		if(this.match('PUT')) return this.putStatement();
-		else if(this.match('PRINT')) return new statements.PrintStatement();
+		// else if(this.match('PRINT')) return new statements.PrintStatement();
 		else if(this.match('IF')) return this.ifStatement();
 		else if(this.match('WHILE')) return this.whileStatement();
 		else if(this.match('BREAK')) return new statements.BreakStatement();
 		else if(this.match('FOR')) return this.forStatement();
 		else if(this.match('CONTINUE')) return new statements.ContinueStatement();
+		else if(this.match('CALL')) return this.callStatement();
 		else throw new Error('Unknown statement: ' + this.get(0).type);
+	}
+
+	callStatement(){
+		let name = this.get(0);
+		this.match('WORD');
+		return new statements.CallStatement(name.value);
 	}
 
 	forStatement(){
@@ -265,6 +272,15 @@ class Parser{
 			}while(this.match('LBRACE'));
 			
 			return new expressions.ArrayAccessExpression(name, indices);
+		}else if(this.match('LPAREN')){
+			let args = [];
+
+			while(!this.match('RPAREN')){
+				args.push(this.expression());
+				this.match('COMMA');
+			}
+
+			return new expressions.FunctionExpression(name, args);
 		}
 
 		return new expressions.VariableExpression(name);

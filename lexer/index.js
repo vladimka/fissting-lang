@@ -142,7 +142,7 @@ class Lexer{
 		switch(buffer){
 			case 'put': this.pushToken('PUT'); break;
 			case 'in': this.pushToken('IN'); break;
-			case 'print': this.pushToken('PRINT'); break;
+			case 'call': this.pushToken('CALL'); break;
 			case 'true': this.pushToken('TRUE'); break;
 			case 'false': this.pushToken('FALSE'); break;
 			case 'unknown': this.pushToken('UNKNOWN'); break;

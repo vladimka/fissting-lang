@@ -8,6 +8,7 @@ const ConditionalExpression = require('./conditional-expression');
 const UnknownExpression = require('./unknown-expression');
 const ArrayExpression = require('./array-expression');
 const ArrayAccessExpression = require('./array-access-expression');
+const FunctionExpression = require('./function-expression');
 
 module.exports = {
 	NumberExpression,
@@ -19,5 +20,6 @@ module.exports = {
 	ConditionalExpression,
 	UnknownExpression,
 	ArrayExpression,
-	ArrayAccessExpression
+	ArrayAccessExpression,
+	FunctionExpression
 }

@@ -16,7 +16,11 @@ class Interpreter{
 	}
 
 	interpret(){
-		this.program.execute();
+		try{
+			this.program.execute();
+		}catch(e){
+			console.log(e);
+		}
 	}
 }
 

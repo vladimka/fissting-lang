@@ -1,3 +1,8 @@
-put [[1, 2, 3]] in arr
-put arr[0][1] in out
-print
+put 0 in frames
+
+while true begin
+	call cls
+	put "Hello World{nl}Frames: {frames}" in out
+	call print
+	put frames + 1 in frames
+end
