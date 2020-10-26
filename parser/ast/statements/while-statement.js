@@ -10,6 +10,7 @@ class WhileStatement{
 				this.body.execute();
 			}catch(e){
 				if(e == "break") break;
+				else if(e == "continue") continue;
 			}
 		}
 	}

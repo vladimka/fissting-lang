@@ -62,7 +62,22 @@ class Parser{
 		else if(this.match('IF')) return this.ifStatement();
 		else if(this.match('WHILE')) return this.whileStatement();
 		else if(this.match('BREAK')) return new statements.BreakStatement();
+		else if(this.match('FOR')) return this.forStatement();
+		else if(this.match('CONTINUE')) return new statements.ContinueStatement();
 		else throw new Error('Unknown statement: ' + this.get(0).type);
+	}
+
+	forStatement(){
+		this.match('LPAREN');
+		let assign = this.statement();
+		this.match('COMMA');
+		let condition = this.expression();
+		this.match('COMMA');
+		let incr = this.statement();
+		this.match('RPAREN');
+		let body = this.blockOrStatement();
+
+		return new statements.ForStatement(assign, condition, incr, body);
 	}
 
 	whileStatement(){
@@ -215,18 +230,44 @@ class Parser{
 
 		if(this.match('NUM')) return new expressions.NumberExpression(parseFloat(current.value));
 		else if(this.match('STRING')) return new expressions.StringExpression(current.value);
-		else if(this.match('LBRACE')) return this.expressionInBraces();
+		else if(this.match('LPAREN')) return this.expressionInParens();
 		else if(this.match('TRUE')) return new expressions.BooleanExpression(true);
 		else if(this.match('FALSE')) return new expressions.BooleanExpression(false);
-		else if(this.match('WORD')) return new expressions.VariableExpression(current.value);
+		else if(this.match('WORD')) return this.wordExpression(current.value);
 		else if(this.match('UNKNOWN')) return new expressions.UnknownExpression();
+		else if(this.match('LBRACE')) return this.arrayExpression();
 		else throw new Error('Unknown expression: ' + current.type);
 	}
 
-	expressionInBraces(){
+	expressionInParens(){
 		let expr = this.expression();
-		this.match('RBRACE');
+		this.match('RPAREN');
 		return expr;
+	}
+
+	arrayExpression(){
+		let items = [];
+		while(!this.match('RBRACE')){
+			items.push(this.expression());
+			this.match('COMMA');
+		}
+
+		return new expressions.ArrayExpression(items);
+	}
+
+	wordExpression(name){
+		if(this.match('LBRACE')){
+			let indices = [];
+
+			do{
+				indices.push(this.expression());
+				this.match('RBRACE');
+			}while(this.match('LBRACE'));
+			
+			return new expressions.ArrayAccessExpression(name, indices);
+		}
+
+		return new expressions.VariableExpression(name);
 	}
 }
 
