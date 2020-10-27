@@ -1,5 +1,5 @@
 const BlockStatement = require('./block-statement');
-const PutStatement = require('./put-statement');
+const AssignStatement = require('./assign-statement');
 const IfStatement = require('./if-statement');
 const WhileStatement = require('./while-statement');
 const BreakStatement = require('./break-statement');
@@ -12,7 +12,7 @@ const ReturnStatement = require('./return-statement');
 
 module.exports = {
 	BlockStatement,
-	PutStatement,
+	AssignStatement,
 	IfStatement,
 	WhileStatement,
 	BreakStatement,

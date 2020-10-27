@@ -34,10 +34,10 @@ class Parser{
 	}
 
 	blockOrStatement(){
-		if(this.match('BEGIN')){
+		if(this.match('LBRACKET')){
 			let _statements = [];
 
-			while(!this.match('END')){
+			while(!this.match('RBRACKET')){
 				_statements.push(this.statement());
 			}
 			
@@ -57,8 +57,7 @@ class Parser{
 	}
 
 	statement(){
-		if(this.match('PUT')) return this.putStatement();
-		else if(this.match('IF')) return this.ifStatement();
+		if(this.match('IF')) return this.ifStatement();
 		else if(this.match('WHILE')) return this.whileStatement();
 		else if(this.match('BREAK')) return new statements.BreakStatement();
 		else if(this.match('FOR')) return this.forStatement();
@@ -66,7 +65,7 @@ class Parser{
 		else if(this.match('CALL')) return this.callStatement();
 		else if(this.match('FUNCTION')) return this.functionAssignStatement();
 		else if(this.match('RETURN')) return new statements.ReturnStatement(this.expression());
-		else return this.functionStatement();
+		else return this.assignStatement();
 	}
 
 	functionAssignStatement(){
@@ -85,7 +84,7 @@ class Parser{
 		return new statements.FunctionAssignStatement(name, args, this.blockOrStatement());
 	}
 
-	functionStatement(){
+	assignStatement(){
 		let current = this.get(0);
 
 		if(this.match('WORD')){
@@ -98,7 +97,7 @@ class Parser{
 				}
 
 				return new statements.FunctionStatement(current.value, args);
-			}
+			}else if(this.match('EQ')) return new statements.AssignStatement(current.value, this.expression());
 		}else throw new Error('Unknown statement: ' + this.get(0).type);
 	}
 
@@ -137,14 +136,6 @@ class Parser{
 		return new statements.IfStatement(condition, body, elseBlock ? elseBlock : undefined);
 	}
 
-	putStatement(){
-		let expr = this.expression();
-		this.match('IN');
-		let name = this.get(0).value;
-		this.match('WORD');
-		return new statements.PutStatement(expr, name);
-	}
-
 	expression(){
 		return this.logical();
 	}
@@ -171,7 +162,7 @@ class Parser{
 		let expr = this.conditional();
 
 		while(true){
-			if(this.match('EQ')){
+			if(this.match('EQEQ')){
 				expr = new expressions.ConditionalExpression('==', expr, this.conditional());
 				continue;
 			}

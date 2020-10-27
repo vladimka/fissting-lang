@@ -1,7 +1,7 @@
 const Variables = require('../../../lib/variables');
 
-class PutStatement{
-	constructor(expr, name){
+class AssignStatement{
+	constructor(name, expr){
 		this.expr = expr;
 		this.name = name;
 	}
@@ -11,4 +11,4 @@ class PutStatement{
 	}
 }
 
-module.exports = PutStatement;
+module.exports = AssignStatement;

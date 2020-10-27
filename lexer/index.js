@@ -1,7 +1,7 @@
 const LexerError = require('./error');
 const Token = require('./token');
 
-const op_regexp = /[+-\/*\(\)<>!=|&%,\[\]]/;
+const op_regexp = /[+-\/*\(\)<>!=|&%,\[\]{}]/;
 const op_tokens = {
 	'+' : 'PLUS',
 	'-' : 'MINUS',
@@ -14,13 +14,16 @@ const op_tokens = {
 	'>' : 'GT',
 	'<=' : 'LTEQ',
 	'>=' : 'GTEQ',
-	'==' : 'EQ',
+	'==' : 'EQEQ',
 	'!=' : 'NOTEQ',
 	'||' : 'OR',
 	'&&' : 'AND',
 	',' : 'COMMA',
 	'[' : 'LBRACE',
-	']' : 'RBRACE'
+	']' : 'RBRACE',
+	'=' : 'EQ',
+	'{' : 'LBRACKET',
+	'}' : 'RBRACKET',
 }
 
 class Lexer{
@@ -148,8 +151,8 @@ class Lexer{
 			case 'unknown': this.pushToken('UNKNOWN'); break;
 			case 'if': this.pushToken('IF'); break;
 			case 'else': this.pushToken('ELSE'); break;
-			case 'begin': this.pushToken('BEGIN'); break;
-			case 'end': this.pushToken('END'); break;
+			// case 'begin': this.pushToken('BEGIN'); break;
+			// case 'end': this.pushToken('END'); break;
 			case 'while': this.pushToken('WHILE'); break;
 			case 'break': this.pushToken('BREAK'); break;
 			case 'for': this.pushToken('FOR'); break;

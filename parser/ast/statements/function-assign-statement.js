@@ -19,11 +19,11 @@ class FunctionAssignStatement{
 			try{
 				this.body.execute();
 			}catch(e){
-				result = e;
+				result = e.eval();
 			}
 
-			// for(let arg of this.argsList)
-			// 	Variables.set(arg, new UnknownValue());
+			for(let arg of this.argsList)
+				Variables.set(arg, new UnknownValue());
 
 			return result;
 		}));
