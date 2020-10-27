@@ -7,18 +7,21 @@ class Interpreter{
 	constructor(fileName){
 		this.lexer = new Lexer(readFileSync(fileName, 'utf8'));
 		this.tokens = this.lexer.tokenize();
-
-		// console.log(this.tokens);
-
 		this.parser = new Parser(this.tokens);
 		this.program = this.parser.parse();
-
-		console.log(this.program);
-		writeFileSync(path.join(__dirname, '/ast.json'), JSON.stringify(this.program, null, '\t'), 'utf8');
 	}
 
-	interpret(){
+	interpret(args){
 		try{
+			if(args.tokens == true){
+				console.log(this.tokens);
+			}
+
+			if(args.ast == true){
+				console.log(this.program);
+				writeFileSync(path.join(__dirname, '/ast.json'), JSON.stringify(this.program, null, '\t'), 'utf8');
+			}
+
 			this.program.execute();
 		}catch(e){
 			console.log(e);

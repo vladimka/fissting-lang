@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "start" : "node . main.fl"
+    "start": "node . main.fl"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,10 @@
     "url": "https://github.com/vladimka/fissting-lang/issues"
   },
   "homepage": "https://github.com/vladimka/fissting-lang#readme",
-  "bin" : {
-    "fl" : "index.js"
+  "bin": {
+    "fl": "index.js"
+  },
+  "dependencies": {
+    "yargs": "^16.1.0"
   }
 }
