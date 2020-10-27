@@ -24,6 +24,8 @@ const op_tokens = {
 	'=' : 'EQ',
 	'{' : 'LBRACKET',
 	'}' : 'RBRACKET',
+	'++' : 'INCREMENT',
+	'--' : 'DECREMENT'
 }
 
 class Lexer{
@@ -87,18 +89,17 @@ class Lexer{
 		let current = this.peek(0);
 		let buffer = '';
 
-		while(true){
-			if(current == '/'){
-				if(this.peek(1) == '/'){
-					this.tokenizeComment();
-					break;
-				}
+		if(current == '/'){
+			if(this.peek(1) == '/'){
+				this.tokenizeComment();
+				return;
 			}
+		}
 
-			if(op_tokens[buffer + current] != undefined){
-				this.pushToken(op_tokens[buffer + current]);
-				this.next();
-				break;
+		while(true){
+			if(op_tokens[buffer + current] == undefined && buffer != ''){
+				this.pushToken(op_tokens[buffer]);
+			 	break;
 			}
 
 			buffer += current;
@@ -151,8 +152,6 @@ class Lexer{
 			case 'unknown': this.pushToken('UNKNOWN'); break;
 			case 'if': this.pushToken('IF'); break;
 			case 'else': this.pushToken('ELSE'); break;
-			// case 'begin': this.pushToken('BEGIN'); break;
-			// case 'end': this.pushToken('END'); break;
 			case 'while': this.pushToken('WHILE'); break;
 			case 'break': this.pushToken('BREAK'); break;
 			case 'for': this.pushToken('FOR'); break;

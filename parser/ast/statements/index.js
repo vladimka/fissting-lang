@@ -9,6 +9,7 @@ const CallStatement = require('./call-statement');
 const FunctionStatement = require('./function-statement');
 const FunctionAssignStatement = require('./function-assign-statement');
 const ReturnStatement = require('./return-statement');
+const IncDecStatement = require('./inc-dec-statement');
 
 module.exports = {
 	BlockStatement,
@@ -21,5 +22,6 @@ module.exports = {
 	CallStatement,
 	FunctionStatement,
 	FunctionAssignStatement,
-	ReturnStatement
+	ReturnStatement,
+	IncDecStatement
 }

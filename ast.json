@@ -1,16 +1,376 @@
 {
 	"statements": [
 		{
-			"expr": {
-				"value": "Hello World",
-				"name": "StringExpression"
+			"fnName": "fact",
+			"argsList": [
+				"n"
+			],
+			"body": {
+				"statements": [
+					{
+						"expr": {
+							"value": 1,
+							"name": "NumberExpression"
+						},
+						"varName": "a",
+						"name": "AssignStatement"
+					},
+					{
+						"assign": {
+							"expr": {
+								"value": 1,
+								"name": "NumberExpression"
+							},
+							"varName": "i",
+							"name": "AssignStatement"
+						},
+						"condition": {
+							"op": "<",
+							"expr1": {
+								"varName": "i",
+								"name": "VariableExpression"
+							},
+							"expr2": {
+								"op": "+",
+								"expr1": {
+									"varName": "n",
+									"name": "VariableExpression"
+								},
+								"expr2": {
+									"value": 1,
+									"name": "NumberExpression"
+								},
+								"name": "BinaryExpression"
+							},
+							"name": "ConditionalExpression"
+						},
+						"incr": {
+							"op": "++",
+							"varName": "i",
+							"name": "IncDecStatement"
+						},
+						"body": {
+							"expr": {
+								"op": "*",
+								"expr1": {
+									"varName": "a",
+									"name": "VariableExpression"
+								},
+								"expr2": {
+									"varName": "i",
+									"name": "VariableExpression"
+								},
+								"name": "BinaryExpression"
+							},
+							"varName": "a",
+							"name": "AssignStatement"
+						},
+						"name": "ForStatement"
+					},
+					{
+						"expr": {
+							"varName": "a",
+							"name": "VariableExpression"
+						},
+						"name": "ReturnStatement"
+					}
+				],
+				"name": "BlockStatement"
 			},
-			"varName": "out",
-			"name": "AssignStatement"
+			"name": "FunctionAssignStatement"
 		},
 		{
-			"callName": "print",
-			"name": "CallStatement"
+			"fnName": "fibb",
+			"argsList": [
+				"n"
+			],
+			"body": {
+				"statements": [
+					{
+						"expr": {
+							"value": 0,
+							"name": "NumberExpression"
+						},
+						"varName": "a",
+						"name": "AssignStatement"
+					},
+					{
+						"expr": {
+							"value": 1,
+							"name": "NumberExpression"
+						},
+						"varName": "b",
+						"name": "AssignStatement"
+					},
+					{
+						"expr": {
+							"value": 1,
+							"name": "NumberExpression"
+						},
+						"varName": "c",
+						"name": "AssignStatement"
+					},
+					{
+						"assign": {
+							"expr": {
+								"value": 1,
+								"name": "NumberExpression"
+							},
+							"varName": "i",
+							"name": "AssignStatement"
+						},
+						"condition": {
+							"op": "<",
+							"expr1": {
+								"varName": "i",
+								"name": "VariableExpression"
+							},
+							"expr2": {
+								"varName": "n",
+								"name": "VariableExpression"
+							},
+							"name": "ConditionalExpression"
+						},
+						"incr": {
+							"expr": {
+								"op": "+",
+								"expr1": {
+									"varName": "i",
+									"name": "VariableExpression"
+								},
+								"expr2": {
+									"value": 1,
+									"name": "NumberExpression"
+								},
+								"name": "BinaryExpression"
+							},
+							"varName": "i",
+							"name": "AssignStatement"
+						},
+						"body": {
+							"statements": [
+								{
+									"expr": {
+										"op": "+",
+										"expr1": {
+											"varName": "a",
+											"name": "VariableExpression"
+										},
+										"expr2": {
+											"varName": "b",
+											"name": "VariableExpression"
+										},
+										"name": "BinaryExpression"
+									},
+									"varName": "c",
+									"name": "AssignStatement"
+								},
+								{
+									"expr": {
+										"varName": "b",
+										"name": "VariableExpression"
+									},
+									"varName": "a",
+									"name": "AssignStatement"
+								},
+								{
+									"expr": {
+										"varName": "c",
+										"name": "VariableExpression"
+									},
+									"varName": "b",
+									"name": "AssignStatement"
+								}
+							],
+							"name": "BlockStatement"
+						},
+						"name": "ForStatement"
+					},
+					{
+						"expr": {
+							"varName": "c",
+							"name": "VariableExpression"
+						},
+						"name": "ReturnStatement"
+					}
+				],
+				"name": "BlockStatement"
+			},
+			"name": "FunctionAssignStatement"
+		},
+		{
+			"fnName": "print",
+			"argsList": [
+				"str"
+			],
+			"body": {
+				"statements": [
+					{
+						"expr": {
+							"fnName": "concat",
+							"args": [
+								{
+									"varName": "str",
+									"name": "VariableExpression"
+								},
+								{
+									"varName": "nl",
+									"name": "VariableExpression"
+								}
+							],
+							"name": "FunctionExpression"
+						},
+						"varName": "out",
+						"name": "AssignStatement"
+					},
+					{
+						"callName": "print",
+						"name": "CallStatement"
+					}
+				],
+				"name": "BlockStatement"
+			},
+			"name": "FunctionAssignStatement"
+		},
+		{
+			"fnName": "print",
+			"args": [
+				{
+					"value": "------------------------{nl}Fibbonacci{nl}------------------------",
+					"name": "StringExpression"
+				}
+			],
+			"name": "FunctionStatement"
+		},
+		{
+			"assign": {
+				"expr": {
+					"value": 1,
+					"name": "NumberExpression"
+				},
+				"varName": "i",
+				"name": "AssignStatement"
+			},
+			"condition": {
+				"op": "<",
+				"expr1": {
+					"varName": "i",
+					"name": "VariableExpression"
+				},
+				"expr2": {
+					"value": 20,
+					"name": "NumberExpression"
+				},
+				"name": "ConditionalExpression"
+			},
+			"incr": {
+				"expr": {
+					"op": "+",
+					"expr1": {
+						"varName": "i",
+						"name": "VariableExpression"
+					},
+					"expr2": {
+						"value": 1,
+						"name": "NumberExpression"
+					},
+					"name": "BinaryExpression"
+				},
+				"varName": "i",
+				"name": "AssignStatement"
+			},
+			"body": {
+				"statements": [
+					{
+						"fnName": "print",
+						"args": [
+							{
+								"fnName": "fibb",
+								"args": [
+									{
+										"varName": "i",
+										"name": "VariableExpression"
+									}
+								],
+								"name": "FunctionExpression"
+							}
+						],
+						"name": "FunctionStatement"
+					}
+				],
+				"name": "BlockStatement"
+			},
+			"name": "ForStatement"
+		},
+		{
+			"fnName": "print",
+			"args": [
+				{
+					"value": "------------------------{nl}Factorials{nl}------------------------",
+					"name": "StringExpression"
+				}
+			],
+			"name": "FunctionStatement"
+		},
+		{
+			"assign": {
+				"expr": {
+					"value": 1,
+					"name": "NumberExpression"
+				},
+				"varName": "i",
+				"name": "AssignStatement"
+			},
+			"condition": {
+				"op": "<",
+				"expr1": {
+					"varName": "i",
+					"name": "VariableExpression"
+				},
+				"expr2": {
+					"value": 20,
+					"name": "NumberExpression"
+				},
+				"name": "ConditionalExpression"
+			},
+			"incr": {
+				"expr": {
+					"op": "+",
+					"expr1": {
+						"varName": "i",
+						"name": "VariableExpression"
+					},
+					"expr2": {
+						"value": 1,
+						"name": "NumberExpression"
+					},
+					"name": "BinaryExpression"
+				},
+				"varName": "i",
+				"name": "AssignStatement"
+			},
+			"body": {
+				"statements": [
+					{
+						"fnName": "print",
+						"args": [
+							{
+								"fnName": "fact",
+								"args": [
+									{
+										"varName": "i",
+										"name": "VariableExpression"
+									}
+								],
+								"name": "FunctionExpression"
+							}
+						],
+						"name": "FunctionStatement"
+					}
+				],
+				"name": "BlockStatement"
+			},
+			"name": "ForStatement"
 		}
 	],
 	"name": "BlockStatement"

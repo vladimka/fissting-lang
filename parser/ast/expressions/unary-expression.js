@@ -4,6 +4,7 @@ class UnaryExpression{
 	constructor(op, expr){
 		this.op = op;
 		this.expr = expr;
+		this.name = "UnaryExpression";
 	}
 
 	eval(){
@@ -11,10 +12,10 @@ class UnaryExpression{
 		let res;
 
 		switch(this.op){
-			case "-": result = new NumberValue(-(value.asNumber())); break;
-			case "+": result = new NumberValue(value.asNumber()); break;
+			case "-": res = new NumberValue(-(value.asNumber())); break;
+			default:
+				case "+": res = new NumberValue(value.asNumber()); break;
 		}
-		console.log(res, value);
 
 		return res;
 	}

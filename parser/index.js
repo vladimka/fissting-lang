@@ -98,6 +98,8 @@ class Parser{
 
 				return new statements.FunctionStatement(current.value, args);
 			}else if(this.match('EQ')) return new statements.AssignStatement(current.value, this.expression());
+			else if(this.match('INCREMENT')) return new statements.IncDecStatement('++', current.value);
+			else if(this.match('DECREMENT')) return new statements.IncDecStatement('--', current.value);
 		}else throw new Error('Unknown statement: ' + this.get(0).type);
 	}
 
@@ -129,15 +131,33 @@ class Parser{
 	ifStatement(){
 		let condition = this.expression();
 		let body = this.blockOrStatement();
-		let elseBlock;
+		let elseBlock = undefined;
 
 		if(this.match('ELSE')) elseBlock = this.statement();
 
-		return new statements.IfStatement(condition, body, elseBlock ? elseBlock : undefined);
+		return new statements.IfStatement(condition, body, elseBlock);
 	}
 
 	expression(){
-		return this.logical();
+		return this.incDecExpression();
+	}
+
+	incDecExpression(){
+		let expr = this.logical();
+
+		while(true){
+			if(this.match('INCREMENT')){
+				expr = new expressions.IncDecExpression('++', expr);
+				continue;
+			}
+			if(this.match('DECREMENT')){
+				expr = new expressions.IncDecExpression('--', expr);
+				continue;
+			}
+			break;
+		}
+
+		return expr;
 	}
 
 	logical(){
@@ -221,19 +241,19 @@ class Parser{
 	}
 
 	additive(){
-		let expr = this.primary();
+		let expr = this.unary();
 
 		while(true){
 			if(this.match('PLUS')){
-				expr = new expressions.BinaryExpression('+', expr, this.primary());
+				expr = new expressions.BinaryExpression('+', expr, this.unary());
 				continue;
 			}
 			if(this.match('MINUS')){
-				expr = new expressions.BinaryExpression('-', expr, this.primary());
+				expr = new expressions.BinaryExpression('-', expr, this.unary());
 				continue;
 			}
 			if(this.match('PERCENT')){
-				expr = new expressions.BinaryExpression('%', expr, this.primary());
+				expr = new expressions.BinaryExpression('%', expr, this.unary());
 				continue;
 			}
 			break;
@@ -242,20 +262,10 @@ class Parser{
 		return expr;
 	}
 
-	// unary(){
-	// 	let expr = this.primary();
-
-	// 	while(true){
-	// 		if(this.match('MINUS')){
-	// 			console.log(expr);
-	// 			expr = new expressions.UnaryExpression('-', expr);
-	// 			continue;
-	// 		}
-	// 		break;
-	// 	}
-
-	// 	return expr;
-	// }
+	unary(){
+		if(this.match('MINUS')) return new expressions.UnaryExpression('-', this.primary());
+		else return this.primary();
+	}
 
 	primary(){
 		let current = this.get(0);
