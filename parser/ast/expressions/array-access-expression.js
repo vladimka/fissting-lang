@@ -1,13 +1,14 @@
 const Variables = require('../../../lib/variables');
 
 class ArrayAccessExpression{
-	constructor(name, indices){
-		this.name = name;
+	constructor(arrName, indices){
+		this.arrName = arrName;
 		this.indices = indices;
+		this.name = "ArrayAccessExpression";
 	}
 
 	eval(){
-		let val = Variables.get(this.name);
+		let val = Variables.get(this.arrName);
 
 		for(let index of this.indices){
 			val = val.get(index.eval().asNumber()).eval();

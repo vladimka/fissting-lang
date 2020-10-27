@@ -3,6 +3,7 @@ class IfStatement{
 		this.condition = condition;
 		this.body = body;
 		this.elseBlock = elseBlock;
+		this.name = "IfStatement";
 	}
 
 	execute(){

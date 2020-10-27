@@ -1,6 +1,7 @@
 class BlockStatement{
 	constructor(statements){
 		this.statements = statements;
+		this.name = "BlockStatement";
 	}
 
 	execute(){

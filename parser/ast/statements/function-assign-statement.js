@@ -2,14 +2,15 @@ const Variables = require('../../../lib/variables');
 const { FunctionValue, UnknownValue } = require('../../../lib/values/');
 
 class FunctionAssignStatement{
-	constructor(name, argsList, body){
-		this.name = name;
+	constructor(fnName, argsList, body){
+		this.fnName = fnName;
 		this.argsList = argsList;
 		this.body = body;
+		this.name = "FunctionAssignStatement";
 	}
 
 	execute(){
-		Variables.set(this.name, new FunctionValue(args => {
+		Variables.set(this.fnName, new FunctionValue(args => {
 			let result = new UnknownValue();
 
 			for(let i = 0; i < args.length; i++)

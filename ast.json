@@ -1,0 +1,17 @@
+{
+	"statements": [
+		{
+			"expr": {
+				"value": "Hello World",
+				"name": "StringExpression"
+			},
+			"varName": "out",
+			"name": "AssignStatement"
+		},
+		{
+			"callName": "print",
+			"name": "CallStatement"
+		}
+	],
+	"name": "BlockStatement"
+}

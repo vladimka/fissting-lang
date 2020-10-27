@@ -1,4 +1,8 @@
 class ContinueStatement{
+	constructor(){
+		this.name = "ContinueStatement";
+	}
+
 	execute(){
 		throw "continue";
 	}

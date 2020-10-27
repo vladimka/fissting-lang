@@ -1,4 +1,8 @@
 class BreakStatement{
+	constructor(){
+		this.name = "BreakStatement";
+	}
+
 	execute(){
 		throw "break";
 	}

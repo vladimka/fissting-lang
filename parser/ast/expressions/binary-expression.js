@@ -5,6 +5,7 @@ class BinaryExpression{
 		this.op = op;
 		this.expr1 = expr1;
 		this.expr2 = expr2;
+		this.name = "BinaryExpression";
 	}
 
 	eval(){

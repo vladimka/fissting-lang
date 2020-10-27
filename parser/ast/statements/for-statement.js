@@ -4,6 +4,7 @@ class ForStatement{
 		this.condition = condition;
 		this.incr = incr;
 		this.body = body;
+		this.name = "ForStatement";
 	}
 
 	execute(){

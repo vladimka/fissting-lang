@@ -3,6 +3,7 @@ const { ArrayValue } = require('../../../lib/values/');
 class ArrayExpression{
 	constructor(value){
 		this.value = value;
+		this.name = "ArrayExpression";
 	}
 
 	eval(){

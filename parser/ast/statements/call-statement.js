@@ -2,17 +2,18 @@ const Variables = require('../../../lib/variables');
 const { StringValue } = require('../../../lib/values/');
 
 class CallStatement{
-	constructor(name){
-		this.name = name;
+	constructor(callName){
+		this.callName = callName;
+		this.name = "CallStatement";
 	}
 
 	execute(){
-		switch(this.name){
+		switch(this.callName){
 			case 'print': this.print(); break;
 			case 'get_input': this.get_input(); break;
 			case 'cls': this.cls(); break;
 			default:
-				throw new Error('Unknown system function "' + this.name + '"');
+				throw new Error('Unknown system function "' + this.callName + '"');
 		}
 	}
 

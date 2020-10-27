@@ -1,6 +1,7 @@
 class ReturnStatement{
 	constructor(expr){
 		this.expr = expr;
+		this.name = "ReturnStatement";
 	}
 
 	execute(){

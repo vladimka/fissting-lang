@@ -1,4 +1,5 @@
-const { readFileSync } = require('fs');
+const { readFileSync, writeFileSync } = require('fs');
+const path = require('path');
 const Lexer = require('./lexer/');
 const Parser = require('./parser/');
 
@@ -12,7 +13,8 @@ class Interpreter{
 		this.parser = new Parser(this.tokens);
 		this.program = this.parser.parse();
 
-		// console.log(this.program.statements);
+		console.log(this.program);
+		writeFileSync(path.join(__dirname, '/ast.json'), JSON.stringify(this.program, null, '\t'), 'utf8');
 	}
 
 	interpret(){

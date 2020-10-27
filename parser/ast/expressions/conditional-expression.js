@@ -5,6 +5,7 @@ class ConditionalExpression{
 		this.op = op;
 		this.expr1 = expr1;
 		this.expr2 = expr2;
+		this.name = "ConditionalExpression";
 	}
 
 	eval(){

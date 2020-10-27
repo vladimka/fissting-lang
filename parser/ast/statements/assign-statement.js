@@ -1,13 +1,14 @@
 const Variables = require('../../../lib/variables');
 
 class AssignStatement{
-	constructor(name, expr){
+	constructor(varName, expr){
 		this.expr = expr;
-		this.name = name;
+		this.varName = varName;
+		this.name = "AssignStatement";
 	}
 
 	execute(){
-		Variables.set(this.name, this.expr.eval());
+		Variables.set(this.varName, this.expr.eval());
 	}
 }
 

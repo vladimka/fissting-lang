@@ -1,6 +1,6 @@
 {
   "name": "fissting-lang",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A programming language written without any tools",
   "main": "index.js",
   "directories": {

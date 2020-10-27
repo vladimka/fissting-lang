@@ -3,6 +3,7 @@ const { NumberValue } = require('../../../lib/values/');
 class NumberExpression{
 	constructor(value){
 		this.value = value;
+		this.name = "NumberExpression";
 	}
 
 	eval(){

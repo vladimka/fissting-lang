@@ -1,12 +1,13 @@
 const Variables = require('../../../lib/variables');
 
 class VariableExpression{
-	constructor(name){
-		this.name = name;
+	constructor(varName){
+		this.varName = varName;
+		this.name = "VariableExpression";
 	}
 
 	eval(){
-		return Variables.get(this.name);
+		return Variables.get(this.varName);
 	}
 }
 

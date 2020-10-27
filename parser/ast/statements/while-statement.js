@@ -2,6 +2,7 @@ class WhileStatement{
 	constructor(condition, body){
 		this.condition = condition;
 		this.body = body;
+		this.name = "WhileStatement";
 	}
 
 	execute(){
