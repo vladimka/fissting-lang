@@ -11,7 +11,7 @@ class ArrayAccessExpression{
 		let val = Variables.get(this.arrName);
 
 		for(let index of this.indices){
-			val = val.get(index.eval().asNumber()).eval();
+			val = val.get(index.eval().asNumber());
 		}
 
 		return val;

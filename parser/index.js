@@ -100,6 +100,29 @@ class Parser{
 			}else if(this.match('EQ')) return new statements.AssignStatement(current.value, this.expression());
 			else if(this.match('INCREMENT')) return new statements.IncDecStatement('++', current.value);
 			else if(this.match('DECREMENT')) return new statements.IncDecStatement('--', current.value);
+			else if(this.match('LBRACE')){
+				let indices = [];
+
+				do{
+					indices.push(this.expression());
+					this.match('RBRACE');
+				}while(this.match('LBRACE'))
+
+				this.match('EQ');
+
+				return new statements.ArrayAssignStatement(current.value, indices, this.expression());
+			}else if(this.match('DOT')){
+				let keys = [];
+
+				do{
+					keys.push(this.get(0).value);
+					this.match('WORD');
+				}while(this.match('DOT'));
+
+				this.match('EQ');
+
+				return new statements.ObjectAssignStatement(current.value, keys, this.expression());
+			}
 		}else throw new Error('Unknown statement: ' + this.get(0).type);
 	}
 
@@ -278,7 +301,22 @@ class Parser{
 		else if(this.match('WORD')) return this.wordExpression(current.value);
 		else if(this.match('UNKNOWN')) return new expressions.UnknownExpression();
 		else if(this.match('LBRACE')) return this.arrayExpression();
+		else if(this.match('LBRACKET')) return this.objectExpression();
 		else throw new Error('Unknown expression: ' + current.type);
+	}
+
+	objectExpression(){
+		let object = {}
+		
+		while(!this.match('RBRACKET')){
+			let key = this.get(0).value;
+			this.match('WORD');
+			this.match('DOTDOT');
+			object[key] = this.expression();
+			this.match('COMMA');
+		}
+
+		return new expressions.ObjectExpression(object);
 	}
 
 	expressionInParens(){
@@ -289,6 +327,7 @@ class Parser{
 
 	arrayExpression(){
 		let items = [];
+
 		while(!this.match('RBRACE')){
 			items.push(this.expression());
 			this.match('COMMA');
@@ -316,6 +355,15 @@ class Parser{
 			}
 
 			return new expressions.FunctionExpression(name, args);
+		}else if(this.match('DOT')){
+			let keys = [];
+
+			do{
+				keys.push(this.get(0).value);
+				this.match('WORD');
+			}while(this.match('DOT'));
+			
+			return new expressions.ObjectAccessExpression(name, keys);
 		}
 
 		return new expressions.VariableExpression(name);

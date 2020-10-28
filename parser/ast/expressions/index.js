@@ -10,6 +10,8 @@ const ArrayExpression = require('./array-expression');
 const ArrayAccessExpression = require('./array-access-expression');
 const FunctionExpression = require('./function-expression');
 const IncDecExpression = require('./inc-dec-expression');
+const ObjectExpression = require('./object-expression');
+const ObjectAccessExpression = require('./object-access-expression');
 
 module.exports = {
 	NumberExpression,
@@ -23,5 +25,7 @@ module.exports = {
 	ArrayExpression,
 	ArrayAccessExpression,
 	FunctionExpression,
-	IncDecExpression
+	IncDecExpression,
+	ObjectExpression,
+	ObjectAccessExpression
 }

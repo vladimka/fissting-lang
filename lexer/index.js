@@ -1,7 +1,7 @@
 const LexerError = require('./error');
 const Token = require('./token');
 
-const op_regexp = /[+-\/*\(\)<>!=|&%,\[\]{}]/;
+const op_regexp = /[+-\/*\(\)<>!=|&%,\[\]{}:.]/;
 const op_tokens = {
 	'+' : 'PLUS',
 	'-' : 'MINUS',
@@ -25,7 +25,9 @@ const op_tokens = {
 	'{' : 'LBRACKET',
 	'}' : 'RBRACKET',
 	'++' : 'INCREMENT',
-	'--' : 'DECREMENT'
+	'--' : 'DECREMENT',
+	':' : 'DOTDOT',
+	'.' : 'DOT' 
 }
 
 class Lexer{

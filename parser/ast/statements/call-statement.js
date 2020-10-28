@@ -19,12 +19,14 @@ class CallStatement{
 
 	print(){
 		let out = Variables.get('out').asString();
+
 		if(/\{(?<name>\w+)\}/.test(out)){
 			let matches = out.match(/\{(?<name>\w+)\}/g);
 			for(let match of matches){
 				out = out.replace(match, Variables.get(match.replace(/[{}]/g, '')).asString());
 			}
 		}
+
 		process.stdout.write(out);
 	}
 
@@ -38,6 +40,7 @@ class CallStatement{
 	}
 
 	cls(){
+		Variables.set("out", new StringValue(""));
 		console.clear();
 	}
 }
