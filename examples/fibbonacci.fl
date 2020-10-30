@@ -1,9 +1,9 @@
 function fibb(n){
 	a = 0
 	b = 1
-	c = 0
+	c = 1
 
-	for(i = 1, i < n, i = i + 1){
+	for(i = 1, i < n, i = i++){
 		c = a + b
 		a = b
 		b = c
@@ -12,7 +12,4 @@ function fibb(n){
 	return c
 }
 
-for(i = 1, i < 20, i = i + 1){
-	out = concat(fibb(i), nl)
-	call print
-}
+fibb(1)

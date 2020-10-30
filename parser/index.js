@@ -97,7 +97,11 @@ class Parser{
 				}
 
 				return new statements.FunctionStatement(current.value, args);
-			}else if(this.match('EQ')) return new statements.AssignStatement(current.value, this.expression());
+			}else if(this.match('EQ')) return new statements.AssignStatement('=', current.value, this.expression());
+			else if(this.match('PLUSEQ')) return new statements.AssignStatement('+=', current.value, this.expression());
+			else if(this.match('MINUSEQ')) return new statements.AssignStatement('-=', current.value, this.expression());
+			else if(this.match('STAREQ')) return new statements.AssignStatement('*=', current.value, this.expression());
+			else if(this.match('SLASHEQ')) return new statements.AssignStatement('/=', current.value, this.expression());
 			else if(this.match('INCREMENT')) return new statements.IncDecStatement('++', current.value);
 			else if(this.match('DECREMENT')) return new statements.IncDecStatement('--', current.value);
 			else if(this.match('LBRACE')){

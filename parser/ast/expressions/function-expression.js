@@ -8,8 +8,12 @@ class FunctionExpression{
 	}
 
 	eval(){
-		let fn = Variables.get(this.fnName);
-		return fn.value(this.args);
+		try{
+			let fn = Variables.get(this.fnName);
+			return fn.value(this.args);
+		}catch{
+			throw new Error('Error in function: ' + this.fnName);
+		}
 	}
 }
 

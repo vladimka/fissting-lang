@@ -1,3 +1,8 @@
-str = split("Hello world", "")
-out = str
+x1 = 13 y1 = 27
+x2 = 17 y2 = 24
+
+dx = x1 - x2
+dy = y1 - y2
+
+out = string(sqrt(sqr(dx) + sqr(dy))) + nl
 call print

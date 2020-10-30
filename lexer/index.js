@@ -27,7 +27,11 @@ const op_tokens = {
 	'++' : 'INCREMENT',
 	'--' : 'DECREMENT',
 	':' : 'DOTDOT',
-	'.' : 'DOT' 
+	'.' : 'DOT',
+	'*=' : 'STAREQ',
+	'-=' : 'MINUSEQ',
+	'/=' : 'SLASHEQ',
+	'+=' : 'PLUSEQ'
 }
 
 class Lexer{
