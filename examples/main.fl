@@ -1,8 +1,4 @@
-x1 = 13 y1 = 27
-x2 = 17 y2 = 24
+import "system"
 
-dx = x1 - x2
-dy = y1 - y2
-
-out = string(sqrt(sqr(dx) + sqr(dy))) + nl
+out = fl_version
 call print

@@ -65,6 +65,7 @@ class Parser{
 		else if(this.match('CALL')) return this.callStatement();
 		else if(this.match('FUNCTION')) return this.functionAssignStatement();
 		else if(this.match('RETURN')) return new statements.ReturnStatement(this.expression());
+		else if(this.match('IMPORT')) return new statements.ImportStatement(this.expression());
 		else return this.assignStatement();
 	}
 

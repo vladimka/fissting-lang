@@ -11,8 +11,8 @@ class FunctionExpression{
 		try{
 			let fn = Variables.get(this.fnName);
 			return fn.value(this.args);
-		}catch{
-			throw new Error('Error in function: ' + this.fnName);
+		}catch(e){
+			console.log(`Error while executing function "${this.fnName}"\n${e}`);
 		}
 	}
 }

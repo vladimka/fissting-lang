@@ -12,6 +12,7 @@ const ReturnStatement = require('./return-statement');
 const IncDecStatement = require('./inc-dec-statement');
 const ArrayAssignStatement = require('./array-assign-statement');
 const ObjectAssignStatement = require('./object-assign-statement');
+const ImportStatement = require('./import-statement');
 
 module.exports = {
 	BlockStatement,
@@ -27,5 +28,6 @@ module.exports = {
 	ReturnStatement,
 	IncDecStatement,
 	ArrayAssignStatement,
-	ObjectAssignStatement
+	ObjectAssignStatement,
+	ImportStatement
 }

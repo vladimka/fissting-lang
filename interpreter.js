@@ -22,9 +22,9 @@ class Interpreter{
 				writeFileSync(path.join(__dirname, '/ast.json'), JSON.stringify(this.program, null, '\t'), 'utf8');
 			}
 
-			let start = Date.now();
+			// let start = Date.now();
 			this.program.execute();
-			console.log(`Execution time: ${Date.now()-start}ms`);
+			// console.log(`Execution time: ${Date.now()-start}ms`);
 		}catch(e){
 			console.log(e);
 		}

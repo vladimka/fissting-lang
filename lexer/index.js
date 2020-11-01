@@ -117,7 +117,7 @@ class Lexer{
 		this.next();
 		this.next();
 		while(true){
-			if(/[\r\n]/.test(this.peek(0)))
+			if(/[\r\n\0]/.test(this.peek(0)))
 				break;
 
 			this.next();
@@ -164,6 +164,7 @@ class Lexer{
 			case 'continue': this.pushToken('CONTINUE'); break;
 			case 'function': this.pushToken('FUNCTION'); break;
 			case 'return': this.pushToken('RETURN'); break;
+			case 'import': this.pushToken('IMPORT'); break;
 			default: this.pushToken('WORD', buffer);
 		}
 	}

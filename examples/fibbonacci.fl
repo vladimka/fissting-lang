@@ -12,4 +12,5 @@ function fibb(n){
 	return c
 }
 
-fibb(1)
+out = string(fibb(1)) + nl
+//call print
